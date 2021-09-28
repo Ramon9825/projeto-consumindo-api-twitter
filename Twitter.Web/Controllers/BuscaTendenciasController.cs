@@ -17,7 +17,6 @@ namespace Twitter.Web.Controllers
         private readonly IHttpClientFactory _clientFactory;
         private readonly ICosmosDbService _cosmosDbService;
 
-        public IEnumerable<SelectListItem> Itens { get; set; }
         public static ItemViewModel _item { get; set; }
         public static CidadesPorPais listaCidadesPorPaises { get; set; }
         public CommonViewModel commonViewModel = new()
