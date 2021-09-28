@@ -1,0 +1,142 @@
+﻿@model Twitter.Web.Models.CommonViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<h1>Procure por região</h1>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Procure Tendências do Twitter</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    @using (Html.BeginForm("Index", "BuscaTendencias", FormMethod.Post))
+    { }
+    <form id="dropDownList" asp-action="Index">
+
+        @Html.AntiForgeryToken()
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <div id="listaPais" class="col-auto my-1">
+                        @Html.DropDownList("Pais", @Model.ListaCidadesPorPaises, "Escolha um país ...")
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <div class="col-auto my-1">
+                        @Html.DropDownList("Cidades", new List<SelectListItem>(), "Escolha uma cidade ...")
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <a asp-action="ObterFavoritos"><img id="icon" src="~/icon/like.png" /></a>
+        </div>
+    </form>
+
+</nav>
+
+    @if (ViewBag.Tabela != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Nome
+                    </th>
+                    <th>
+                        Tweets
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.TrendsViewModel)
+                {
+                    <tr class="item">
+                        <td>
+                            <a href="@item.url">@Html.DisplayFor(modelItem => item.name)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tweet_volume)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Salvar favoritos", "ObterFavoritos", null, null, new { @class = "btn btn-primary btn-enviar" })
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#listaPais").on("change", "select", function () {
+                
+                var value = $(this).val();
+                $.post("@Url.Action("setDropDownList")", { value: value }, function (data) {
+                    populateDropDown("#Cidades", data);                    
+                });
+            });
+        });
+
+        function populateDropDown(id, listaCidades) {
+            $(id).empty();
+            $(id).append("<option ' selected='selected'>Escolha uma cidade ...</option>")
+            $.each(listaCidades, function (index, row) {
+                if (index == 0) {
+                    $(id).append("<option value='" + row.value + ">" + row.text + "</option>");
+                } else {
+                    $(id).append("<option value='" + row.value + "'>" + row.text + "</option>")
+                }
+            })
+        }
+    </script>
+
+<script type="text/javascript">
+    $(".btn-outline-success").click(function () {
+        $("select :selected").remove();
+    })
+</script>
+
+    <script type="text/javascript">
+        $(".btn-enviar").click(function (event) {
+            var dados;
+            event.target.parentElement.parentElement.className = "selecionado";
+            $('tr').each(function () {
+                if (this.className === "selecionado") {
+                    var dadoLinhaTabela = {
+                        Id: null,
+                        Name: $(this).children()[0].innerText,
+                        Url: $(this).children()[0].getElementsByTagName("a")[0].getAttribute("href"),
+                        Tweets: parseInt($(this).children()[1].innerText)
+                    };
+
+
+
+                    if (isNaN(dadoLinhaTabela["Tweets"])) {
+                        dadoLinhaTabela["Tweets"] = 0;
+                    }
+
+                    dados = dadoLinhaTabela;
+                    this.classList.remove("selecionado");
+                }
+            });
+
+            $.post("@Url.Action("Salvar")", dados, function (data) {
+                window.location.href = "/BuscaTendencias/ObterFavoritos";
+            });
+        });
+    </script>
+}
