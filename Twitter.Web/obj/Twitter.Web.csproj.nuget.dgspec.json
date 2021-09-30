@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ramon\\source\\repos\\Twitter\\Twitter.Web\\Twitter.Web.csproj": {}
+    "C:\\Users\\Ramon\\Desktop\\projeto-consumindo-api-twitter\\Twitter.Web\\Twitter.Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ramon\\source\\repos\\Twitter\\Twitter.Web\\Twitter.Web.csproj": {
+    "C:\\Users\\Ramon\\Desktop\\projeto-consumindo-api-twitter\\Twitter.Web\\Twitter.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ramon\\source\\repos\\Twitter\\Twitter.Web\\Twitter.Web.csproj",
+        "projectUniqueName": "C:\\Users\\Ramon\\Desktop\\projeto-consumindo-api-twitter\\Twitter.Web\\Twitter.Web.csproj",
         "projectName": "Twitter.Web",
-        "projectPath": "C:\\Users\\Ramon\\source\\repos\\Twitter\\Twitter.Web\\Twitter.Web.csproj",
+        "projectPath": "C:\\Users\\Ramon\\Desktop\\projeto-consumindo-api-twitter\\Twitter.Web\\Twitter.Web.csproj",
         "packagesPath": "C:\\Users\\Ramon\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ramon\\source\\repos\\Twitter\\Twitter.Web\\obj\\",
+        "outputPath": "C:\\Users\\Ramon\\Desktop\\projeto-consumindo-api-twitter\\Twitter.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ramon\\AppData\\Roaming\\NuGet\\NuGet.Config",

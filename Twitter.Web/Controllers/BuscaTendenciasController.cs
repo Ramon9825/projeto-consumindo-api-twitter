@@ -126,7 +126,7 @@ namespace Twitter.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> SetDropDownList(string value)
+        public async Task<JsonResult> ObterCidades(string value)
         {
             var listaPaises = listaCidadesPorPaises.ObterPaisesPorCidades.ToList();
             var listaCidades = new List<Cidade>();

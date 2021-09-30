@@ -85,7 +85,7 @@
             $("#listaPais").on("change", "select", function () {
                 
                 var value = $(this).val();
-                $.post("@Url.Action("setDropDownList")", { value: value }, function (data) {
+                $.post("@Url.Action("ObterCidades")", { value: value }, function (data) {
                     populateDropDown("#Cidades", data);                    
                 });
             });
